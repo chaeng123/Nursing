@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>폐 경락 지점 정보</title>
+<style>
+    .container {
+    position: relative;
+    width: 1324px; /* 이미지의 원본 너비로 설정 */
+    height: 768px; /* 이미지의 원본 높이로 설정 */
+    margin: 0 auto; /* 페이지 중앙 정렬 */
+    }
+
+    img {
+    width: 1024px; /* 이미지의 원본 너비로 설정 */
+    height: 768px; /* 이미지의 원본 높이로 설정 */
+    display: block; /* 이미지가 컨테이너를 꽉 채우도록 */
+    }
+    .acupoint {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .modal {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        z-index: 1000;
+        position: absolute;
+        width: auto; /* 너비를 자동으로 조절합니다. */
+        max-width: 50%; /* 최대 너비를 화면 너비의 50%로 설정합니다. */
+        overflow-y: auto;
+        display: none;
+    }
+    /* 모달 내부 텍스트 스타일 */
+    .modal-content {
+        font-size: 16px; /* 글꼴 크기를 조정합니다. */
+        line-height: 1.6; /* 줄 간격을 조정합니다. */
+    }
+    button {
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .modal.active {
+        display: block;
+    }
+    .modal img {
+    max-width: 100%; /* 이미지가 모달 너비를 초과하지 않도록 설정 */
+    max-height: 400px; /* 이미지의 최대 높이를 제한 */
+    display: block; /* 이미지를 블록 요소로 설정하여 줄바꿈 */
+    margin: 0 auto; /* 이미지를 모달 중앙에 위치시킴 */
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="lu_fin.jpg" alt="폐(LU) 경락 지점 이미지">
+    <!-- 점 위치를 지정할 div들 -->
+    <div class="acupoint" style="top: 15%; left: 15%;" onclick="openModal('2', event);"></div>
+    <div class="acupoint" style="top: 18%; left: 15%;" onclick="openModal('1', event);"></div>
+    <div class="acupoint" style="top: 24%; left: 26%;" onclick="openModal('3', event);"></div>
+    <div class="acupoint" style="top: 26%; left: 27%;" onclick="openModal('4', event);"></div>
+    <div class="acupoint" style="top: 37%; left: 29%;" onclick="openModal('5', event);"></div>
+    <div class="acupoint" style="top: 48%; left: 33%;" onclick="openModal('6', event);"></div>
+    <div class="acupoint" style="top: 60%; left: 35%;" onclick="openModal('7', event);"></div>
+    <div class="acupoint" style="top: 62%; left: 34%;" onclick="openModal('8', event);"></div>
+    <div class="acupoint" style="top: 64%; left: 35%;" onclick="openModal('9', event);"></div>
+    <div class="acupoint" style="top: 70%; left: 37%;" onclick="openModal('10', event);"></div>
+    <div class="acupoint" style="top: 81%; left: 42%;" onclick="openModal('11', event);"></div>
+    <div id="modal" class="modal">
+        <div id="modal-content"></div>
+        <button onclick="closeModal();">닫기</button>
+    </div>
+</div>
+<script>
+const acupoints = {
+        "1": {
+            description: `LU1 중부 (中府)
+        부위: 앞가슴부위, 첫째 갈비사이공간(the 1st intercostal space)과 같은 높이, 빗장아래오목(infraclavicular fossa)의 가쪽, 앞정중선(anterior median line)에서 가쪽으로 6寸.
+        취혈: 먼저 雲門(LU2)을 정한 후, 雲門(LU2)에서 아래쪽으로 1寸이 되는 지점에서 취혈한다.
+        침구법: 직자 0.3～0.5寸, 사자 0.5～1寸`, 
+            imgSrc: "1.jpg"
+        },
+        "2": {
+            description: `LU2 운문 (雲門)
+        부위: 앞가슴부위, 빗장아래오목(infraclavicular fossa), 어깨뼈 부리돌기(coracoid process) 안쪽, 앞정중선(anterior median line)에서 가쪽으로 6寸 오목한 곳.
+        취혈: 저항을 준 상태에서 팔을 약간 굽히고 벌릴 때 나타나는 어깨세모-가슴 삼각부위(deltopectoral triangle)의 중심에 취혈한다.`,
+            imgSrc: ""
+        },
+        "3": {
+            description: `LU3 천부 (天府)
+        부위: 위팔 앞가쪽면, 위팔두갈래근(biceps brachiimuscle)의 가쪽모서리 바로 가쪽, 앞겨드랑주름(anterior axillary fold)에서 아래쪽으로 3寸.
+        취혈: 앞겨드랑주름과 尺澤(LU5)을 연결하는 선에서 위쪽으로부터 1/3, 아래쪽으로부터 2/3가 되는 지점에서 취혈한다.
+        침구법: 직자 0.3～0.5寸, 사자 1～1.5寸`,
+            imgSrc: ""
+        },
+        "4": {
+            description: `LU4 협백 (俠白)
+        부위: 위팔 앞가쪽면, 위팔두갈래근(biceps brachii muscle)의 가쪽모서리 바로가쪽, 앞겨드랑주름(anterior axillary fold)에서 아래쪽으로 4寸.
+        취혈: 앞겨드랑주름과 尺澤(LU5)을 연결하는 선에서 위쪽으로부터 1/3과 아래쪽으로부터 2/3가 되는 지점에서 먼쪽으로 1寸에서 취혈한다.
+        침구법: 직자 0.3～0.5寸, 사자 1～1.5寸`,
+            imgSrc: ""
+        },
+        "5": {
+            description: `LU5 척택 (尺澤)
+        부위: 팔꿈치 앞쪽면, 팔오금주름(cubital crease) 위, 위팔두갈래근힘줄(biceps brachii tendon)의 가쪽 오목한 곳.
+        취혈: 팔꿈치를 굽힌 상태에서 팔오금주름 위의 曲池(LI11)와 曲澤(PC3) 사이에 위치한다. 위팔두갈래근힘줄에 의해 尺澤(LU5)과 曲澤(PC3)이 나뉜다.
+        침구법: 직자 0.3～0.5寸, 사자 0.5～1寸, 얕은 정맥을 점자출혈`,
+            imgSrc: ""
+        },
+        "6": {
+            description: `LU6 공최 (孔最)
+        부위: 아래팔 앞가쪽면, 尺澤(LU5)과 太淵(LU9)을 연결하는 선 위, 손바닥쪽손목주름(palmar wrist crease)에서 위쪽으로 7寸.
+        취혈: 팔을 펴고 손바닥을 위로 향하게 한 자세에서, 尺澤(LU5)과 太淵(LU9)을 연결하는 선의 중점에서 위쪽으로 1寸에서 취혈한다.
+        침구법: 직자 0.5～1寸 (유3호), 사자 1～1.5寸`,
+            imgSrc: "6.jpg"
+        },
+        "7": {
+            description: `LU7 열결 (列缺)
+        부위: 아래팔의 노쪽면, 긴엄지벌림근힘줄(abductor pollicis longus tendon)과 짧은엄지폄근힘줄(extensor pollicis brevis tendon)의 사이, 긴엄지벌림근힘줄 고랑(groove for the abductor pollicis longus tendon) 위, 손바닥쪽 손목주름(the palmar wrist crease)에서 위쪽으로 1.5寸.
+        침구법: 직자 0.2～0.3寸, 사자 0.5～1寸 (팔꿈치관절 방향으로 침입), 협착성건초염 치료시에는 침봉을 외방으로 0.5～1寸 침입`,
+            imgSrc: "7.jpg"
+        },
+        "8": {
+            description: `LU8 경거 (經渠)
+        부위: 아래팔 앞가쪽면, 노뼈붓돌기(radial styloid process)와 노동맥(radial artery)사이, 손바닥쪽 손목주름(palmar wrist crease)에서 위쪽으로 1寸.
+        침구법: 직자 0.2～0.3寸, 사자 0.5～0.7寸, 침주시 노동맥을 피하여 침입`,
+            imgSrc: "8.jpg"
+        },
+        "9": {
+            description: `LU9 태연 (太淵)
+        부위: 손목 앞가쪽면, 노뼈붓돌기(radial styloid process)와 손배뼈(scaphoid bone) 사이, 긴엄지벌림근힘줄(abductor pollicis longus tendon)의 자쪽 오목한 곳.
+        취혈: 손바닥쪽 손목주름(palmar wrist crease)의 노쪽, 노동맥(radial artery)이 뛰는 곳에서 취혈한다.
+        침구법: 직자 0.2～0.3寸 (손바닥쪽에서 손등쪽을 향해 침입), 사자 0.3～0.5寸`,
+            imgSrc: "9.jpg"
+        },
+        "10": {
+            description: `LU10 어제 (魚際)
+        부위: 손바닥, 첫째 손허리뼈(the 1st metacarpal bone) 중점의 노쪽, 赤白肉際.
+        취혈: 손바닥을 위로 하고, 손바닥 大魚際部位의 노쪽모서리(橈側緣) 중간지점에서 취혈한다.
+        침구법: 직자 0.3～0.5寸, 사자 0.5～1寸 (침봉을 약간 사향하여 掌內로 침입)`,
+            imgSrc: "10.jpg"
+        },
+        "11": {
+            description: `LU11 소상 (少商)
+        부위: 엄지손가락, 끝마디뼈(distal phalanx)의 노쪽, 엄지손톱 노쪽 뿌리각(radial corner of the thumb nail)에서 몸가쪽으로 0.1寸.
+        취혈: 엄지손톱의 노쪽모서리를 지나는 수직선과 손톱뿌리를 지나는 수평선이 만나는 지점에서 취혈한다.
+        침구법: 직자 0.1～0.2寸, 사자 0.1～0.3寸 (침봉을 상방으로 향해 침입), 삼릉침으로 속침해서 출혈시키기도 한다.`,
+            imgSrc: "11.jpg"
+        }
+};
+
+        function openModal(id, event) {
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        const acupoint = event.target; // 클릭된 경락 점 요소
+        const acupointData = acupoints[id];
+
+        // 이미지 태그를 포함할 수 있는 조건을 추가합니다.
+        let imageTag = '';
+        if (acupointData.imgSrc) {
+            imageTag = `<img src="${acupointData.imgSrc}" alt="경락 점 ${id}" style="max-width: 100%; height: auto;">`;
+        }
+
+        // 이미지 태그와 설명을 모달에 추가합니다.
+        modalContent.innerHTML = `
+            <p>${acupointData.description.replace(/\n/g, '<br>')}</p>
+            ${imageTag}`;
+
+        // 클릭된 경락 점 위치를 가져옵니다.
+        const acupointRect = acupoint.getBoundingClientRect();
+
+        // 모달을 경락 점 바로 아래에 위치시킵니다.
+        modal.style.top = `${acupointRect.bottom + window.scrollY}px`;
+        modal.style.left = `${acupointRect.left + window.scrollX}px`;
+
+        modal.classList.add('active');
+}
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active')
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+</script>
+</body>
+</html>
